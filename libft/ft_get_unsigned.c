@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:44:00 by thacharo          #+#    #+#             */
-/*   Updated: 2024/11/26 12:22:09 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/01/15 01:38:16 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	find_num_len(unsigned int n)
 	len = 0;
 	if (n == 0)
 		return (1);
-	if (n < 0)
+	if ((int)n < 0)
 		n = UINT32_MAX + n + 1;
 	while (n > 0)
 	{
@@ -63,7 +63,7 @@ static void	convert(char *arr, unsigned int n, int len)
 	int	i;
 
 	i = 0;
-	if (n < 0)
+	if ((int)n < 0)
 		n = UINT32_MAX + n + 1;
 	while (i < len)
 	{

@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 19:54:40 by thacharo          #+#    #+#             */
-/*   Updated: 2024/10/13 16:06:18 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/01/15 01:36:06 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 			break ;
 		start++;
 	}
-	while (end >= 0)
+	while ((int)end >= 0)
 	{
 		if (!(check_keyword(s1[end], set)))
 			break ;

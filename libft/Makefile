@@ -76,7 +76,7 @@ $(NAME): $(OBJECTS) $(HEADER)
 	ar -rcs $(NAME) $(OBJECTS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I $(HEADER) -c $< -o $@
+	$(CC) $(CFLAGS) -I ./ -c $< -o $@
 
 clean:
 	rm -f $(OBJECTS)

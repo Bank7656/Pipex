@@ -19,7 +19,7 @@ LIBFT = $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS) $(HEADER) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJS) $(HEADER)
 	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -o $(NAME)
 
 $(OBJ_DIR)%.o:%.c
@@ -34,6 +34,9 @@ $(LIBFT) : $(LIBFT_OBJS)
 $(LIBFT_OBJS):
 	$(MAKE) -C $(LIBFT_DIR)
 
+test: $(NAME)
+	./$(NAME) infile "ls -l" "wc -l" outfile
+
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
@@ -41,7 +44,7 @@ clean:
 fclean:
 	rm -rf $(NAME)
 	rm -rf $(OBJ_DIR)
-	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 

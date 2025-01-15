@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 23:44:06 by thacharo          #+#    #+#             */
-/*   Updated: 2024/10/14 17:12:59 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/01/15 01:29:45 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (s == NULL)
 		return (tmp);
-	free(tmp);
 	string_length = ft_strlen(s);
 	if (string_length < start)
 		return (tmp);
+	free(tmp);
 	if (len > string_length - start)
 		len = string_length - start;
 	str = (char *)malloc(sizeof(char) * (len + 1));
