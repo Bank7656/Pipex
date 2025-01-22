@@ -1,4 +1,5 @@
 CC = cc
+CFLAGS = -g
 # CFLAGS = -Wall -Wextra -Werror
 
 HEADER = pipex.h
@@ -35,6 +36,7 @@ $(LIBFT_OBJS):
 	$(MAKE) -C $(LIBFT_DIR)
 
 test: $(NAME)
+	./$(NAME) infile "cat -e" "wc -l" outfile
 	./$(NAME) infile "ls -l" "wc -l" outfile
 
 clean:

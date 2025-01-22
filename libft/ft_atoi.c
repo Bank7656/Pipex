@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:05:00 by thacharo          #+#    #+#             */
-/*   Updated: 2025/01/08 22:06:07 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:22:48 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ static int	ft_atoi_number(const char *str, int sign)
 		tmp = (tmp * 10) + str[i] - '0';
 		i++;
 	}
-	if (str[i] != '\0')
-		return (0);
 	if (tmp > INT_MAX && (tmp * sign != INT_MIN))
 		number = 0;
 	else if (tmp * sign == INT_MIN)
