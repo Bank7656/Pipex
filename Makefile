@@ -5,7 +5,7 @@ CFLAGS = -g
 HEADER = pipex.h
 HEADER_DIR = ./
 
-SRC = pipex.c
+SRC = pipex.c child.c parent.c utils.c parser.c
 SRC_OBJS = $(SRC:.c=.o)
 
 OBJ_DIR = ./objects/
