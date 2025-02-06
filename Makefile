@@ -1,11 +1,11 @@
 CC = cc
 CFLAGS = -g
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 HEADER = pipex.h
 HEADER_DIR = ./
 
-SRC = main.c
+SRC = main.c getter.c child.c parent.c parser.c error_handle.c
 SRC_OBJS = $(SRC:.c=.o)
 
 OBJ_DIR = ./objects/
@@ -34,10 +34,6 @@ $(LIBFT) : $(LIBFT_OBJS)
 
 $(LIBFT_OBJS):
 	$(MAKE) -C $(LIBFT_DIR)
-
-test: $(NAME)
-# ./$(NAME) infile "cat -e" "wc -l" outfile
-	./$(NAME) infile "ls -l" "wc -l" outfile
 
 clean:
 	rm -rf $(OBJ_DIR)
