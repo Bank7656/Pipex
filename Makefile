@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror
 HEADER = pipex.h
 HEADER_DIR = ./
 
-SRC = main.c getter.c child.c parent.c parser.c error_handle.c
+SRC = main_pipex.c getter.c child.c parent.c parser.c error_handle.c
 SRC_OBJS = $(SRC:.c=.o)
 
 OBJ_DIR = ./objects/
@@ -30,7 +30,7 @@ LIBFT = $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_DIR) $(HEADER) $(OBJS) 
+$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJS) $(HEADER)  
 	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -o $(NAME)
 
 $(OBJ_DIR)%.o:%.c

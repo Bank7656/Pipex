@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:18:04 by thacharo          #+#    #+#             */
-/*   Updated: 2025/02/07 03:43:26 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:30:48 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
+# define PERMISSION_DENIED 13
 # define COMMAND_NOT_FOUND "command not found"
 
 /* perror */
@@ -25,6 +26,9 @@
 
 /* wait and waitpid */
 # include <sys/wait.h>
+
+/* errno */
+# include <errno.h>
 
 # include "libft/libft.h"
 

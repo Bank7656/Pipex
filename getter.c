@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:05:47 by thacharo          #+#    #+#             */
-/*   Updated: 2025/02/06 22:29:43 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/02/08 21:47:08 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	**get_path(char **env)
 	char	*trimmed_path;
 
 	i = 0;
-	if (env == NULL)
+	if (env[0] == NULL)
 		return (NULL);
 	while (env[i] != NULL)
 	{

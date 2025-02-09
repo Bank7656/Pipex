@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:08:01 by thacharo          #+#    #+#             */
-/*   Updated: 2025/02/06 22:28:13 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/02/10 03:16:09 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ static int	dup_input_fd(t_pipex data, int i)
 	{
 		infile_fd = open(data.infile, O_RDONLY);
 		if (infile_fd == -1)
+		{
+			close(data.pfd[0]);
+			close(data.pfd[1]);
 			handle_error(&data, "open");
+		}
 		if (dup2(infile_fd, STDIN_FILENO) == -1)
 			handle_error(&data, "dup2");
 		close(infile_fd);
@@ -56,7 +60,10 @@ static int	dup_output_fd(t_pipex data, int i)
 	{
 		outfile_fd = open(data.outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (outfile_fd == -1)
+		{
+			close(data.pfd[1]);
 			handle_error(&data, "open");
+		}
 		if (dup2(outfile_fd, STDOUT_FILENO) == -1)
 			handle_error(&data, "dup2");
 		close(outfile_fd);
