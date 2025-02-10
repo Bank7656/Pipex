@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:08:01 by thacharo          #+#    #+#             */
-/*   Updated: 2025/02/08 02:22:58 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/02/11 01:02:22 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,17 @@ void	child_process(t_pipex data, char *argv_i, int i)
 
 static int	dup_input_fd(t_pipex data, int i)
 {
-	int		infile_fd;
+	int	infile_fd;
 
 	if (i == 0)
 	{
 		infile_fd = open(data.infile, O_RDONLY);
 		if (infile_fd == -1)
+		{
+			close(data.pfd[0]);
+			close(data.pfd[1]);
 			handle_error(&data, "open");
+		}
 		if (dup2(infile_fd, STDIN_FILENO) == -1)
 			handle_error(&data, "dup2");
 		close(infile_fd);
@@ -52,23 +56,20 @@ static int	dup_output_fd(t_pipex data, int i)
 {
 	int	outfile_fd;
 
-	if ((i == data.process_count - 1) && (data.is_here_doc == 0))
+	if (i == data.process_count - 1)
 	{
-		outfile_fd = open(data.outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (data.is_here_doc)
+			outfile_fd = open(data.outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else
+			outfile_fd = open(data.outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (outfile_fd == -1)
+		{
+			close(data.pfd[1]);
 			handle_error(&data, "open");
+		}
 		if (dup2(outfile_fd, STDOUT_FILENO) == -1)
 			handle_error(&data, "dup2");
 		close(outfile_fd);
-	}
-	else if ((i == data.process_count - 1) && (data.is_here_doc == 1))
-	{
-		outfile_fd = open(data.outfile, O_WRONLY | O_CREAT | O_APPEND ,0644);
-		if (outfile_fd == -1)
-			handle_error(&data, "open");
-		if (dup2(outfile_fd, STDOUT_FILENO) == -1)
-			handle_error(&data, "dup2");
-		close(outfile_fd);	
 	}
 	else
 	{

@@ -14,7 +14,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(SRC_OBJS))
 BONUS_HEADER = pipex_bonus.h
 BONUS_HEADER_DIR = ./
 
-BONUS_SRC = main_bonus.c getter_bonus.c child_bonus.c parent_bonus.c parser_bonus.c error_handle_bonus.c
+BONUS_SRC = main_pipex_bonus.c getter_bonus.c child_bonus.c parent_bonus.c parser_bonus.c error_handle_bonus.c
 BONUS_SRC_OBJS = $(BONUS_SRC:.c=.o)
 
 BONUS_OBJ_DIR = ./objects_bonus/
@@ -30,46 +30,36 @@ LIBFT = $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJS) $(HEADER)  
+$(NAME): $(LIBFT) $(OBJS) $(HEADER)  
 	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -o $(NAME)
 
-$(OBJ_DIR)%.o:%.c
+$(OBJ_DIR)%.o:%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(HEADER_DIR) -c  $< -o $@
 
-$(OBJ_DIR):
-	mkdir $(OBJ_DIR)
+bonus: $(BONUS_NAME)
 
-bonus: .bonus
+$(BONUS_NAME): $(LIBFT) $(BONUS_OBJS) $(BONUS_HEADER) 
+	$(CC) $(CFLAGS) $(BONUS_OBJS) -L./libft -lft -o $(BONUS_NAME)	
 
-.bonus: $(LIBFT) $(BONUS_OBJ_DIR) $(BONUS_HEADER) $(BONUS_OBJS) 
-	$(CC) $(CFLAGS) $(BONUS_OBJS) -L./libft -lft -o $(BONUS_NAME)
-	touch .bonus
-
-$(BONUS_OBJ_DIR)%.o:%.c
+$(BONUS_OBJ_DIR)%.o:%.c | $(BONUS_OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(BONUS_HEADER_DIR) -c  $< -o $@
 
-$(BONUS_OBJ_DIR):
-	mkdir $(BONUS_OBJ_DIR)
+$(OBJ_DIR) $(BONUS_OBJ_DIR):
+	mkdir -p $@
 
-$(LIBFT) : $(LIBFT_OBJS)
-	$(MAKE) -C $(LIBFT_DIR)
-
-$(LIBFT_OBJS):
+$(LIBFT) : 
 	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	rm -rf $(OBJ_DIR)
-	rm -rf $(BONUS_OBJ_DIR)
-	rm -f .bonus
+	rm -rf $(OBJ_DIR) $(BONUS_OBJ_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean:
 	rm -rf $(NAME)
-	rm -rf $(OBJ_DIR)
-	rm -rf $(BONUS_OBJ_DIR)
-	rm -f .bonus
+	rm -rf $(BONUS_NAME)
+	rm -rf $(OBJ_DIR) $(BONUS_OBJ_DIR)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY: bonus clean fclean re
+.PHONY: all bonus clean fclean re
