@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 20:31:52 by thacharo          #+#    #+#             */
-/*   Updated: 2025/02/11 01:25:18 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:02:52 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	create_temp_file(t_pipex *data)
 
 	temp_fd = open(TEMP_FILE, O_CREAT | O_WRONLY, 0644);
 	if (temp_fd == -1)
-		handle_error(data, "open");	
+		handle_error(data, "open");
 	while (1)
 	{
 		line = get_next_line(STDIN_FILENO);
@@ -59,13 +59,13 @@ void	create_temp_file(t_pipex *data)
 		{
 			ft_putstr_fd("\0", temp_fd);
 			free(line);
-			break;
+			break ;
 		}
 		if (ft_strncmp(line, data -> delimeter, ft_strlen(line) - 1) == 0)
 		{
 			ft_putstr_fd("\0", temp_fd);
 			free(line);
-			break;
+			break ;
 		}
 		ft_putstr_fd(line, temp_fd);
 		free(line);

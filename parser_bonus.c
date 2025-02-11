@@ -6,17 +6,20 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:04:41 by thacharo          #+#    #+#             */
-/*   Updated: 2025/02/10 19:26:57 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:12:36 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-static int ft_is_only_space(char *str);
+static int	ft_is_only_space(char *str);
+static int	check_access(t_pipex *data, char *path);
 static char	*get_full_command_path(t_pipex *data, char *cmd);
 
 void	parser(t_pipex *data, char *str)
 {
+	int	access_check;
+
 	if (str[0] == 0 || ft_is_only_space(str))
 		handle_error(data, "empty string");
 	data -> cmds_arg = ft_split(str, ' ');
@@ -26,8 +29,6 @@ void	parser(t_pipex *data, char *str)
 		data -> command_path = get_full_command_path(data, data -> cmds_arg[0]);
 	else
 	{
-		int	access_check;
-
 		data -> command_path = ft_strdup(data -> cmds_arg[0]);
 		access_check = access(data -> command_path, X_OK | F_OK);
 		if (errno == PERMISSION_DENIED)
@@ -42,16 +43,12 @@ void	parser(t_pipex *data, char *str)
 static char	*get_full_command_path(t_pipex *data, char *cmd)
 {
 	int		i;
-	int		access_check;
 	char	*tmp;
 	char	*cmd_path;
 
 	i = 0;
-	
 	if (data -> env_path == NULL)
 		handle_error(data, "access");
-	else if (data -> envp == NULL)
-		handle_error(data, "no env");
 	while (data -> env_path[i] != NULL)
 	{
 		tmp = ft_strjoin(data -> env_path[i], "/");
@@ -61,13 +58,8 @@ static char	*get_full_command_path(t_pipex *data, char *cmd)
 		free(tmp);
 		if (cmd_path == NULL)
 			handle_error(data, "malloc");
-		access_check = access(cmd_path, X_OK | F_OK);
-		if (access_check == 0)
+		if (check_access(data, cmd_path) == 0)
 			return (cmd_path);
-		if (errno == 126)
-			handle_error(data, "permission denied");
-		else if (errno == 127)
-			handle_error(data, "access");
 		i++;
 		free(cmd_path);
 	}
@@ -75,7 +67,19 @@ static char	*get_full_command_path(t_pipex *data, char *cmd)
 	return (NULL);
 }
 
-static int ft_is_only_space(char *str)
+static int	check_access(t_pipex *data, char *path)
+{
+	int	access_check;
+
+	access_check = access(path, X_OK | F_OK);
+	if (errno == 126)
+		handle_error(data, "permission denied");
+	else if (errno == 127)
+		handle_error(data, "access");
+	return (access_check);
+}
+
+static int	ft_is_only_space(char *str)
 {
 	int	i;
 

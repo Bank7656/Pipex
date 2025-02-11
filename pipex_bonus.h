@@ -6,18 +6,12 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:18:04 by thacharo          #+#    #+#             */
-/*   Updated: 2025/02/10 23:28:04 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:42:24 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
-
-# define EXIT_FAILURE 1
-# define EXIT_SUCCESS 0
-# define PERMISSION_DENIED 13
-# define COMMAND_NOT_FOUND "command not found"
-# define TEMP_FILE "temp.txt"
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 /* perror */
 # include <stdio.h>
@@ -32,6 +26,13 @@
 # include <errno.h>
 
 # include "libft/libft.h"
+
+# define EXIT_FAILURE 1
+# define EXIT_SUCCESS 0
+# define PERMISSION_DENIED 13
+# define COMMAND_NOT_FOUND 127
+# define COMMAND_CANNOT_EXECUTE 126
+# define TEMP_FILE "temp.txt"
 
 typedef struct s_pipex
 {

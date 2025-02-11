@@ -6,7 +6,7 @@
 /*   By: thacharo <thacharo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 22:05:47 by thacharo          #+#    #+#             */
-/*   Updated: 2025/02/10 21:04:06 by thacharo         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:01:50 by thacharo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_data(int argc, char *argv[], char *envp[], t_pipex *data)
 	else
 	{
 		data->process_count = argc - 3;
-		data->delimeter= NULL;
+		data->delimeter = NULL;
 		data->infile = argv[1];
 	}
 	data->outfile = argv[argc - 1];
@@ -36,7 +36,6 @@ void	get_data(int argc, char *argv[], char *envp[], t_pipex *data)
 	data->parent_pid = (pid_t *)malloc(sizeof(pid_t) * (data->process_count));
 	if (data->parent_pid == NULL)
 		handle_error(data, "malloc");
-
 }
 
 static char	**get_path(char **env)
